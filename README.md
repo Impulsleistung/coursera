@@ -1,4 +1,5 @@
-coursera
-========
-
-Johns Hopkins University // Data Science
+# coursera
+---
+Kevin Ostheimer
+Data Science Track
+---
