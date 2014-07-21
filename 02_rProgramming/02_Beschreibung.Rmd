@@ -6,24 +6,168 @@ output: pdf_document
 toc: yes
 toc_depth: 2
 ---
-
-# Abstract
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-# Introduction
-## First of all
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-## Get some code
-Can be written as
+#Basistypen
+## vector()
 ```{r}
-summary(cars)
+v_vec<-c(1:4,11:14); v_vec
+v_vec_b<-seq(from = -pi, to = pi, length.out = 10); v_vec
 ```
 
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
+## list()
+```{r}
+l_list<-list(ganzzahl=c(1:4), c("Hallo","Lala")); l_list
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## matrix()
+```{r}
+m_mat<-matrix(v_vec, nrow=5, ncol=4); m_mat
+dim(m_mat)
+# Ändern der Dimension einer Matrix
+dim(m_mat)<-c(10,2); m_mat
+
+# Generierung aus zwei Vectoren
+v1<-1:4
+v2<-11.1:14.1
+cbind(v1,v2)
+rbind(v1,v2)
+```
+
+## factor()
+```{r}
+f_fac<-c("pos","neg","pos","pos","neg")
+table(f_fac)
+```
+
+## data.frame()
+```{r}
+a <- c(10,20,15,43,76,41,25,46)                        # numerisch
+b <- factor(c("m", "w", "m", "w", "m", "w", "m", "w")) # Faktor Geschlecht: m=männlich, w=weiblich
+c <- c(2,5,8,3,6,1,5,6)                                # numerisch
+myframe <- data.frame(a,b,c); 
+names(myframe)<-c("Age","Gender","Dose"); myframe
+```
+
+
+## Missing values in a vector
+```{r}
+x<-c(1,2,NA,10)
+good<-!is.na(x); good
+y<-x[complete.cases(x)]; y
+# Bei einer Matrix geht das so:
+m<-matrix(rbinom(10,1,0.2),5,2)
+m[3,1]<-NA
+# Variante 1
+m[complete.cases(m),]
+# Variante 2
+subset(m,subset = complete.cases(m),select = c(1,2))
+```
+
+table()
+attributes()
+
+
+```{r}
+```
+## Operationen auf Basistypen
+unclass()
+cbind()
+rbind()
+redimension()
+name() vector()
+
+vectr() to matrix()
+matrix() to dataframe()
+
+as.*
+is.*
+rm.*
+
+## Untermenge von Daten
+subset by [[c(RR,CC)]]
+subset by $COL
+subset by subset
+
+## Daten bereinigen
+clean vector (NA) by TF-counterVector
+clean vector (NA) by complete cases
+clean matrix (NA) by complete cases
+clean matrix and select by subset
+
+## Daten I/O
+read/write table data
+read/write text
+read/write code
+read/write serial obj
+
+source vs. dget
+Speicheroptimiertes lesen mit sapply()
+
+dump, source - MultiData I/O
+dput, dget - Singledta I/O
+
+file, gzfile, url -> connection
+connection I/O ops
+
+# Teil 2
+
+## For() auf vector()
+for (i in seq_along(x))
+for(letters in x)
+
+## For() auf matrix
+m_mat<-matrix(11:16,2,3)
+for(i in seq_len(nrow(m_mat))) {
+  for(j in seq_len(ncol(m_mat))) {
+    print(m_mat[i,j])
+  }
+}
+
+## Binominalverteilung
+rbinom(10,1,0.5)
+
+## Standardverteilung
+daten<-rnorm(100)
+sd(daten,na.rm = TRUE)
+
+## Logisches Subset
+above10 <- function(x) {
+use <- x > 10
+x[use]
+}
+
+## Replicating Vectors
+rep(1:4,each=3,len=10)
+rep(1:4,3)
+A<-matrix(1:4,2,2)
+B<-matrix(rep(10,4),2,2)
+
+## Falsche Matrizenmultiplikation 
+A*B
+## Echte Matrizenmultiplikation 
+A%*%B
+
+## Das Datum
+x<-Sys.time()
+as.POSIXlt(x)
+[1] "2014-07-19 21:40:23 CEST"
+p<-as.POSIXlt(x)
+
+names(unclass(p))
+[1] "sec"   "min"   "hour"  "mday"  "mon"   "year"  "wday"  "yday"  "isdst"
+
+p$sec
+[1] 23.14041
+
+## Kalendarische Operationen
+Wie spät ist es gerade in NewYork, absolut, relativ
+
+Der Interkonti-Flug von D->Singapore, Duaration 12h
+  Start: 5am, 10pm
+  Arr: ??, ??
+  
+Der Interkonti-Flug von D->SanFrancisco, Duaration 12h
+  Start: 5am, 10pm#
+  Arr: ??, ??
+  
+Wann war seit 1999 die kürzeste Wartezeit zwischen Weihnachten
+
