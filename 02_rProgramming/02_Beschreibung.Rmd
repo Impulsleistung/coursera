@@ -72,88 +72,29 @@ colnames(dat)
 ```
 
 Abspeichern von Workspace Variablen
-
+```{r}
+```
 
 Clear Workspace
-rm(list=ls())
-
-read/write table data
-read/write text
-read/write code
-read/write serial obj
-
-source vs. dget
-Speicheroptimiertes lesen mit sapply()
-
-dump, source - MultiData I/O
-dput, dget - Singledta I/O
-
-file, gzfile, url -> connection
-connection I/O ops
-
-
-# Teil 2
-
-## For() auf vector()
-for (i in seq_along(x))
-for(letters in x)
-
-## For() auf matrix
-m_mat<-matrix(11:16,2,3)
-for(i in seq_len(nrow(m_mat))) {
-  for(j in seq_len(ncol(m_mat))) {
-    print(m_mat[i,j])
-  }
-}
-
-## Binominalverteilung
-rbinom(10,1,0.5)
-
-## Standardverteilung
-daten<-rnorm(100)
-sd(daten,na.rm = TRUE)
-
-## Logisches Subset
-above10 <- function(x) {
-use <- x > 10
-x[use]
-}
-
-## Replicating Vectors
-rep(1:4,each=3,len=10)
-rep(1:4,3)
-A<-matrix(1:4,2,2)
-B<-matrix(rep(10,4),2,2)
-
-## Falsche Matrizenmultiplikation 
-A*B
-## Echte Matrizenmultiplikation 
-A%*%B
-
-## Das Datum
-x<-Sys.time()
-as.POSIXlt(x)
-[1] "2014-07-19 21:40:23 CEST"
-p<-as.POSIXlt(x)
-
-names(unclass(p))
-[1] "sec"   "min"   "hour"  "mday"  "mon"   "year"  "wday"  "yday"  "isdst"
-
-p$sec
-[1] 23.14041
-
-## Kalendarische Operationen
-Wie spät ist es gerade in NewYork, absolut, relativ
-
-Der Interkonti-Flug von D->Singapore, Duaration 12h
-  Start: 5am, 10pm
-  Arr: ??, ??
-  
-Der Interkonti-Flug von D->SanFrancisco, Duaration 12h
-  Start: 5am, 10pm#
-  Arr: ??, ??
-  
-Wann war seit 1999 die kürzeste Wartezeit zwischen Weihnachten
-
 ```{r}
+rm(list=ls())
+```
+
+## SingleData I/O
+```{r}
+dat<-airquality
+dput(x = dat, file = "dat.R")
+rm(list=ls())
+dat<-dget(file = "dat.R")
+```
+dput, dget
+
+## MultiData I/O
+```{r}
+v_vec<-c(1:4,11:14);
+m_mat<-matrix(v_vec, nrow=4, ncol=4);
+# Die Variablen müssen in Anführungszeichen
+dump(c("v_vec","m_mat"),file = "dat.R")
+source("dat.R")
+ls()
 ```
