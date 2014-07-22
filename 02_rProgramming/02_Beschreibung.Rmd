@@ -62,38 +62,21 @@ m[complete.cases(m),]
 subset(m,subset = complete.cases(m),select = c(1,2))
 ```
 
-table()
-attributes()
-
-
-```{r}
-```
-## Operationen auf Basistypen
-unclass()
-cbind()
-rbind()
-redimension()
-name() vector()
-
-vectr() to matrix()
-matrix() to dataframe()
-
-as.*
-is.*
-rm.*
-
-## Untermenge von Daten
-subset by [[c(RR,CC)]]
-subset by $COL
-subset by subset
-
-## Daten bereinigen
-clean vector (NA) by TF-counterVector
-clean vector (NA) by complete cases
-clean matrix (NA) by complete cases
-clean matrix and select by subset
-
 ## Daten I/O
+Lesen eines komprimierten Formats, Mindestkonfiguration
+```{r}
+dat<-read.table(unz("rprog-data-quiz1_data.zip","hw1_data.csv"), sep = ",",header = TRUE,quote = "\"")
+head(dat)
+class(dat)
+colnames(dat)
+```
+
+Abspeichern von Workspace Variablen
+
+
+Clear Workspace
+rm(list=ls())
+
 read/write table data
 read/write text
 read/write code
@@ -107,6 +90,7 @@ dput, dget - Singledta I/O
 
 file, gzfile, url -> connection
 connection I/O ops
+
 
 # Teil 2
 
@@ -171,3 +155,5 @@ Der Interkonti-Flug von D->SanFrancisco, Duaration 12h
   
 Wann war seit 1999 die kürzeste Wartezeit zwischen Weihnachten
 
+```{r}
+```

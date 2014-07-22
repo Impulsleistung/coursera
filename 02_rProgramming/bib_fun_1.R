@@ -10,10 +10,3 @@ col_mean <- function(werte_mat, removeNA = FALSE) {
   means
 }
 
-f <- function(x) {
-  g <- function(y) {
-    y + z
-  }
-  z <- 4
-  x + g(x)
-}
