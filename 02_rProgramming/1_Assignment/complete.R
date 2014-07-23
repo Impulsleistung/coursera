@@ -22,7 +22,6 @@ complete <- function(directory, id = 1:332) {
   #x_customRange<-c(70:72)
   x_pollutant<-"nitrate"
   
-  
   # Definitions
   setwd(dir = "/home/impulsleistung/Dokumente/coursera_git//02_rProgramming//1_Assignment")
   x_pwd<-getwd()
@@ -46,24 +45,32 @@ complete <- function(directory, id = 1:332) {
       erg_mat<-rbind(erg_mat,dat)
     }
     x_complete_fac_tab<-factor(x = complete.cases(dat))
-    x_complete_mat<-table(matrix(x_complete_fac_tab))
-    x_complete_mat<-matrix(x_complete_mat)
-    x_complete_single<-(x_complete_mat[2,1])
+    # Levelbugfix
+    complete.cases(dat)
+    
+    if(all(complete.cases(dat)==TRUE)){          #Sind alle falsch
+      x_complete_single<-max(dim(dat))
+    } else if (all(complete.cases(dat)==FALSE)) {  #Sind alle richtig
+      x_complete_single<-0
+    } else {                                      # Gemischt
+      x_complete_mat<-table(matrix(x_complete_fac_tab))
+      x_complete_mat<-matrix(x_complete_mat)
+      x_complete_single<-(x_complete_mat[2,1])
+    }
     
     if(!exists("compl_mat")) {
-      compl_mat<-data.frame(id=x_customRange[compl_counter],nobs=x_complete_single)
-      
+      compl_mat<-data.frame(id=x_customRange[compl_counter],nobs=x_complete_single)    
     }
     else {
       compl_mat<-rbind(compl_mat,data.frame(id=x_customRange[compl_counter],nobs=x_complete_single))
-    }
+    }  
   }
   
   erg_frame<-data.frame(erg_mat)
   # Achtung, gefordert wird aber nur der MEANwert von Sulfat oder Nitrat
   x_pol_vec<-with(erg_frame,get(x_pollutant))
   compl_final<-compl_mat
-  rm("dat", "erg_frame", "erg_mat", "compl_mat", "x_complete_mat")
+  rm("dat", "erg_frame", "erg_mat")
   # In der letzten Zeile steht das Endergebnis
   x_resultNR<-mean(x = x_pol_vec,na.rm = TRUE)
   #round(x_resultNR,digits = 3) # Das war die erste Benotung
