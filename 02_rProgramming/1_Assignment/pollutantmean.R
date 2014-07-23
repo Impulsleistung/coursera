@@ -25,6 +25,9 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     dat<-read.csv(file = x_targetFile,header = TRUE,sep = ",",quote = "\"")
     if(!exists("erg_mat")) {
       erg_mat<-dat
+      x_complete_fac_tab<-factor(x = complete.cases(erg_mat))
+      x_complete_mat<-matrix(x_complete_fac_tab)
+      x_complete_mat[2,1]
     }
     else {
       erg_mat<-rbind(erg_mat,dat)
