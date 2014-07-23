@@ -71,10 +71,6 @@ class(dat)
 colnames(dat)
 ```
 
-Abspeichern von Workspace Variablen
-```{r}
-```
-
 Clear Workspace
 ```{r}
 rm(list=ls())
