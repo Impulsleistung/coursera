@@ -1,11 +1,29 @@
 corr <- function(directory, threshold = 0) {
-  ## 'directory' is a character vector of length 1 indicating
-  ## the location of the CSV files
+  source("complete.R")
+  m_complete<-complete("specdata")
   
-  ## 'threshold' is a numeric vector of length 1 indicating the
-  ## number of completely observed observations (on all
-  ## variables) required to compute the correlation between
-  ## nitrate and sulfate; the default is 0
+  setwd(dir = "/home/impulsleistung/Dokumente/coursera_git//02_rProgramming//1_Assignment")
+  x_path<-directory
+  # Alle Dateien lokalisieren
+  x_files<-dir(path = x_path,recursive = FALSE)
+  x_files<-list(x_files)
   
-  ## Return a numeric vector of correlations
+  m_tres<- subset(x = m_complete,subset = m_complete$nobs>threshold, select = id)
+  m_tres<-as.vector(as.matrix(m_tres))
+  
+  x_selectedFiles<-x_files[[1]][m_tres]
+  
+  for(i in x_selectedFiles) {
+    x_targetFile<-paste(x_path,i,sep = "/")  
+    dat<-read.csv(file = x_targetFile,header = TRUE,sep = ",",quote = "\"")
+    dat<-dat[complete.cases(dat),]
+    cor_single<-cor(x = dat$sulfate,y = dat$nitrate)
+    if(!exists("corr_vec")) {
+      corr_vec<-cor_single;
+    }
+    else {
+      corr_vec<-c(corr_vec,cor_single)
+    }
+  }
+  round(corr_vec,digits = 5)
 }
