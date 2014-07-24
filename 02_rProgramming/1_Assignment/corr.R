@@ -25,5 +25,13 @@ corr <- function(directory, threshold = 0) {
       corr_vec<-c(corr_vec,cor_single)
     }
   }
+  
+  if(!exists("corr_vec")) {
+    corr_vec<-vector('numeric');
+  }
+  
   round(corr_vec,digits = 5)
+  
+  
+  
 }

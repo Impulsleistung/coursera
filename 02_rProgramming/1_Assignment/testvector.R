@@ -1,5 +1,5 @@
 rm(list=ls())
-
+setwd(dir = "/home/impulsleistung/Dokumente/coursera_git//02_rProgramming//1_Assignment")
 source("corr.R")
 source("complete.R")
 cr <- corr("specdata",2000)
