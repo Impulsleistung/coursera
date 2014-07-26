@@ -61,15 +61,24 @@ names(unclass(p))
 p$sec
 [1] 23.14041
 
-## Kalendarische Operationen
-Wie spät ist es gerade in NewYork, absolut, relativ
+#lapply Funktionen auf Listen und Vektoren
+x<-1:4
+lapply(x, runif)
+lapply(x, runif, min=0, max = 10)
 
-Der Interkonti-Flug von D->Singapore, Duaration 12h
-Start: 5am, 10pm
-Arr: ??, ??
 
-Der Interkonti-Flug von D->SanFrancisco, Duaration 12h
-Start: 5am, 10pm#
-Arr: ??, ??
+a=matrix(1:4,2,2); b=matrix(1:6,3,2)
+x<-list(a,b)
+doex<-function(m) {
+  m[,1,drop=FALSE]
+}
+# Extrahiere aus allen Matrizen in der Liste nur die erste Spalte
+lapply(x,doex)
 
-Wann war seit 1999 die kürzeste Wartezeit zwischen Weihnachten
+# Eine Funktion auf die Dimension (Zeilen oder Spalten) einer Matrix bezogen
+m<-matrix(rnorm(30),10,3)
+apply(X = m,MARGIN = 1,FUN = sum) # Gibt 10 Zeilen aus mit der Summe der Spalten, rowSums
+apply(X = m,MARGIN = 2,FUN = sum) # Gibt 3 Spalten aus mit der Summe der 10 Zeilen, colSums
+# Für jede Zeile die Quantile berechnen
+apply(X = m,MARGIN = 1,FUN = quantile, probs=c(0.25,0.75))
+
