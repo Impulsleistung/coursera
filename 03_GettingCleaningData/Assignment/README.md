@@ -1,3 +1,6 @@
+---
+output: pdf_document
+---
 #The "run_analysis.R"
 
 ##Line 1-8
@@ -22,14 +25,16 @@ Since the fread() does not work, I have to do a convert into a data.frame and th
 The data.frame is cleaned up, your memory matters to me ;-)
 
 ##Line 41-72, MERGE
-###For the test and train data set:
+For the test and train data set:
 - import the persons, called subjects
 - import the activity sets and the description of the activities
-###For the test and train data set:
+
+For the test and train data set:
 - setting the column names for the big data tables
 - binding the activity integer values to the big data dables
 - merging the activity names into the big data tables
-###Cleaning in respect of your memory
+
+Cleaning in respect of your memory
 
 ##Line 74-76
 The two sets (training and test) are binded into one. The columns are fully consistent, so this works fine.
