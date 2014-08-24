@@ -1,0 +1,11 @@
+#The "run_analysis.R"
+
+##Line 1-8
+The warnings are deactivated. This is because I use rbing, cbind and colnames with the data.table
+Libs are loaded, needed for the fast data.table's
+The DBG-Flags are for developmen reasons. The Debug-State-Machine controls by itself
+
+##Line 10-16
+If you run this in the first time, all Falgs of the State-Machine are set to TRUE
+There are three sections in my code: downloading, chaching and merging of the data
+
