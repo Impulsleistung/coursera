@@ -74,3 +74,6 @@ if(DBG_MERGE_1) {
 print("Merging the two complete Data Table Sets...")
 DT_COMPLETE_SET<-rbind(DT_TEST_COMPLETE,DT_TRAIN_COMPLETE)
 print("DONE...")
+
+# Writing to disc is done by:
+# write.table(x = DT_COMPLETE_SET,file = "data.txt", row.names = FALSE)
