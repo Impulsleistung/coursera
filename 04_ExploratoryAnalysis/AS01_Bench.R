@@ -1,11 +1,7 @@
 #AS1bnech
 rm(list=ls())
-library(xlsx)
-library(XML)
-library(jsonlite)
+options(warn=-1)
 library(data.table)
-library(DBI)
-library(RMySQL)
 library(lubridate)
 setwd("/home/impulsleistung/Dokumente/coursera_git//04_ExploratoryAnalysis")
 largeFile<-"/home/impulsleistung/Dokumente/Coursera_largeData/household_power_consumption.txt"
@@ -32,4 +28,10 @@ DT_RAW<- DT_RAW[, POSIX_DATE:=dmy_hms(DT_RAW$POSIX_DATE)]
 # Delete what not needed
 DT_RAW<- DT_RAW[, Date:=NULL]
 DT_RAW<- DT_RAW[, Time:=NULL]
-
+# Clean the NA'S in an elegant way
+DT_COMP<-na.exclude(DT_RAW)
+# Extract the desired range
+startDate<-ymd("2007-02-01")
+endDate<-ymd("2007-02-03")
+DT_TARGET_SET<-subset(DT_COMP, POSIX_DATE >= startDate & POSIX_DATE < endDate)
+rm(DT_COMP,DT_RAW,endDate,startDate,largeFile)
