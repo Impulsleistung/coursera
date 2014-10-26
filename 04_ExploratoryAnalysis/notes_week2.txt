@@ -1,0 +1,76 @@
+# Lattice
+# xyplot, bwplot, levelplot
+# xyplot(y~x|f*g, data)
+xyplot(Ozone~Wind,data=airquality)
+# Die kategorische Vaiable muss in einen Faktor konvertiert werden
+airquality<-transform(airquality, Month = facor(Month))
+# Bei Lattice muss das Layout für die Faktorvariable definiert werden
+xyplot(Ozone ~ Wind|Month, data=airquality, layout=c(5,1))
+
+# Lattice panel functions
+xyplot(y~x|f*g, panel=function(x,y, ..) {
+	panel.xyplot(x,y,...) #  Das ist Default
+	panel.abline(h=median(y),lty=2)  # Linie einbauen
+})
+        # Einige Panels sind
+	panel.lmline(x,y,col=2)
+
+# GGPLOT Package
+# qplot
+# - aesthetics(size, shape,color)
+# - geoms(points, lines)
+# Alle Daten müssen im data.frame organisiert sein
+
+# Beispiel
+str(mpg) # Data.frame
+qplot(displ, hwy, data=mpg)  # (x,y,df)
+# Farbcodierter Plot
+qplot(displ, hwy, data=mpg, color=drv) # Faktorisierte Variablen nutzen
+# Geometrischer Trand
+qplot(displ, hwy, data=mpg, geom=c("point", "smooth"))
+
+# Histogramm wenn nur eine Vaiable spezifiziert wurde
+qplot(hwy, data=mpg, fill=drv) # Faktorisieirung nach drv
+
+qplot(displ, hwy, data=mpg, facets=.~drv) 
+# Plot splitten, right side ist cols .~drv
+		 left side ist rows drv~.
+# Mehrere Histogramme nach der faktorisierten Varibale plotten (untereinander, rows)
+qplot(hwy, data=mpg, facets=drv~.  , binwidth=2)
+
+qplot(log(eno), data=maacs, fill=mopos) # Farbcodiertes Histogramm nach mopos, y/n
+qplot(log(eno), data=maacs, geom="density", color=mopos) # Smoothing Histogram
+# Regressionsgerade
+qplot(log(pm25), log(eno), data=maacs,color=mopos,geom=c("point","smooth"),method="lm")
+# Obigen Plot in zwei aufteilen, in einer Zeile
+qplot(log(pm25), log(eno), data=maacs,geom=c("point","smooth"),method="lm",facets=.~mopos)
+
+# ggplot2 Aufbau
+g<-ggplot(maacs, aes(logpm25, NocturnalSympt)) # Das ist der Datenframe
+	+ geom_point() # Hinzufügen der grafischen Punkte
+	+ geom_line()  # Punkte himzufügen
+	+ geom_smooth(method="lm")  # Regressionsgerade, linear model
+	+ facet_grid(.~bmicat)  # Plot nach kategorischer Variable splitten
+# Labels bei ggplot2
+xlab(), ylab(), ggtitle()
+theme(legend.position = ...)
+theme_gray(), theme_bw()
+
+# Modifikation der geom_point(), Autofarbe nach Faktorvariable, Alpha Kanal
+	+ geom_point(aes(color=bmicat),size=4, alpha=1/2)
+# Achsenbeschriftung
+	+ labs(title = ...
+	+ labs(x,y,...
+
+# Konfiguration der Achsen bei Ausreissern
+	+ ylim(-3,3) # Der Ausreisser wird unsichtbar
+	+ coord_cartesian(ylim=c(-3.3)) # Ausreisser geht durch die Decke
+
+# Faktorisierung einer kontinuierlichen Variable
+# 1. Drei Bereiche macht insg. 4 Trennpunkte
+cutpoints<-quantile(kontinuierlich, seq(0,1,length=4), na.rm=T)
+# 2. Ausschneiden der Bereiche
+faktorisiert<-cut(kontinuierlich, cutpoints)
+# 3. Anwendung
+	+ facet_wrap(faktorisiert ~ nochEinFaktor, nrow=2, ncol=4)
+

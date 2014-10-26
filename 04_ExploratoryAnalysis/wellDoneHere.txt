@@ -1,0 +1,5 @@
+- https://github.com/Impulsleistung/ExData_Plotting1/tree/master/figure
+- https://github.com/iamnowhere/ExData_Plotting1/
+- https://github.com/myanastasja/ExData_Plotting1/
+- https://github.com/AC-Novetta/ExData_Plotting1/
+
